@@ -35,8 +35,8 @@ const moveRight = function (block) {
 
 const moveTop = function (block) {
   let numberBlock = parseInt(block.id);
-  for (let i = 0; i < blocks.length - 1; i++) {
-    if (numberBlock === i && i >= 5) {
+  for (let i = 0; i < blocks.length; i++) {
+    if (numberBlock === i && i > 5) {
       let newBlock = blocks[i - 5];
       square.insertBefore(block, blocks[i - 5]);
       square.insertBefore(newBlock, blocks[i + 1]);
@@ -47,7 +47,7 @@ const moveTop = function (block) {
 
 const moveBottom = function (block) {
   let numberBlock = parseInt(block.id);
-  for (let i = 0; i < blocks.length - 1; i++) {
+  for (let i = 0; i < blocks.length; i++) {
     if (numberBlock === i && i < 20) {
       let newBlock = blocks[i + 5];
       square.insertBefore(block, blocks[i + 6]);
