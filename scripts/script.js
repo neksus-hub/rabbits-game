@@ -1,5 +1,6 @@
-const square = document.querySelector(".square-body");
 const resBtn = document.querySelector(".btn-reset");
+
+let square = document.querySelector(".square-body");
 let blocks = square.querySelectorAll(".block");
 
 let arrBlocks = [];
@@ -49,7 +50,6 @@ const moveBottom = function (block) {
   for (let i = 0; i < blocks.length - 1; i++) {
     if (numberBlock === i && i < 20) {
       let newBlock = blocks[i + 5];
-      console.log(newBlock);
       square.insertBefore(block, blocks[i + 6]);
       square.insertBefore(newBlock, blocks[i + 1]);
       rewrite();
@@ -61,9 +61,33 @@ const reset = function () {
   blocks = square.querySelectorAll(".block");
 
   blocks.forEach((block) => {
-    blockText = block.querySelector(".block-number");
-    console.log(block, blockText);
+    block.id = `${block.innerText}`;
+    arrBlocks.push(block);
   });
+
+  square.innerHTML = "";
+
+  for (let j = 0; j < arrBlocks.length; j++) {
+    for (let i = 0; i < arrBlocks.length - 1; i++) {
+      let thisBlock = arrBlocks[i];
+      let nextBlock = arrBlocks[i + 1];
+
+      if (parseInt(arrBlocks[i].id) > parseInt(arrBlocks[i + 1].id)) {
+        let buffer = thisBlock;
+        thisBlock = nextBlock;
+        nextBlock = buffer;
+      }
+
+      arrBlocks[i] = thisBlock;
+      arrBlocks[i + 1] = nextBlock;
+    }
+  }
+
+  arrBlocks.forEach((block) => {
+    square.append(block);
+  });
+
+  console.log(arrBlocks);
 };
 
 square.addEventListener("click", (e) => {
